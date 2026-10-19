@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Ambient background motion only — never applied to buttons or content */
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-float-medium: float-medium 5s ease-in-out infinite;
+  --animate-float-fast: float-fast 3.5s ease-in-out infinite;
+  --animate-orbit-slow: orbit-slow 25s linear infinite;
+  --animate-pulse-slow: pulse-slow 5s ease-in-out infinite;
+  --animate-twinkle-1: twinkle-1 3s ease-in-out infinite;
+  --animate-twinkle-2: twinkle-2 4s ease-in-out infinite;
+  --animate-shimmer-slow: shimmer-slow 8s linear infinite;
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(-3deg); }
+  }
+  @keyframes float-fast {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(1.5deg); }
+  }
+  @keyframes orbit-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50% { opacity: 0.75; transform: scale(1.08); }
+  }
+  @keyframes twinkle-1 {
+    0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+  }
+  @keyframes twinkle-2 {
+    0%, 100% { opacity: 0.9; transform: scale(1.1) rotate(15deg); }
+    50% { opacity: 0.3; transform: scale(0.7) rotate(-15deg); }
+  }
+  @keyframes shimmer-slow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+/* ==========================================================================
+   BUTTONS — flat by default, restrained by design.
+   Colour, weight and hover states live on the element itself via Tailwind
+   classes in the component (bg-*, hover:bg-*, etc). This file only adds:
+   1) a consistent, quick transition so hover/press feel intentional
+   2) a visible keyboard focus ring (accessibility, not decoration)
+   3) one opt-in "signature" treatment for the single CTA per page that
+      earns extra attention — everything else stays quiet.
+   ========================================================================== */
+
+button {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+}
+
+/* Reserve this for ONE primary call-to-action per page — not a global default.
+   A single subtle lift + shadow deepening on hover, nothing layered on top. */
+.btn-signature {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+}
+.btn-signature:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.35);
+}
+.btn-signature:active {
+  transform: translateY(0);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
